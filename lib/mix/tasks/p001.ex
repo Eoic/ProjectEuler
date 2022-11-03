@@ -6,8 +6,18 @@ defmodule Mix.Tasks.P001 do
 
   use Mix.Task
 
+  def sum_multiples() do
+    3..999 |> Enum.reduce(fn element, sum ->
+      if rem(element, 3) === 0 or rem(element, 5) === 0 do
+        sum + element
+      else
+        sum
+      end
+    end)
+  end
+
   @impl Mix.Task
   def run(_args) do
-    IO.puts("Running task P0001.")
+    sum_multiples() |> IO.puts()
   end
 end
