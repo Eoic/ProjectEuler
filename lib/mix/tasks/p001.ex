@@ -6,7 +6,16 @@ defmodule Mix.Tasks.P001 do
 
   use Mix.Task
 
-  def sum_multiples() do
+  defp sum_multiples_of(divisor, target \\ 999) do
+    multiplier = div(target, divisor)
+    divisor * (multiplier * (multiplier + 1)) |> div(2)
+  end
+
+  defp sum_multiples_fast() do
+    sum_multiples_of(3) + sum_multiples_of(5) - sum_multiples_of(15)
+  end
+
+  defp sum_multiples_naive() do
     3..999 |> Enum.reduce(fn element, sum ->
       if rem(element, 3) === 0 or rem(element, 5) === 0 do
         sum + element
@@ -18,6 +27,6 @@ defmodule Mix.Tasks.P001 do
 
   @impl Mix.Task
   def run(_args) do
-    sum_multiples() |> IO.puts()
+    sum_multiples_fast() |> IO.puts()
   end
 end
